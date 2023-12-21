@@ -1,3 +1,4 @@
+#폴더무시
 .streamlit/
 test/
-/test.py
+./aaa.py
