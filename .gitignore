@@ -1,5 +1,6 @@
 #폴더무시
 .streamlit/
 test/
+env/
 #파일무시
 aaa.py
