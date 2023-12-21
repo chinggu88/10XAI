@@ -1,4 +1,5 @@
 #폴더무시
 .streamlit/
 test/
+#파일무시
 aaa.py
