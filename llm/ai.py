@@ -22,7 +22,6 @@ class aihelp:
         USER=st.secrets["user"]
         PASSWORD=st.secrets["password"]
         DATABASE=st.secrets["database"]
-        self.llm = ChatOpenAI(temperature=0.1, openai_api_key=OPENAI_API_KEY, model_name='gpt-3.5-turbo',verbose=True)
         self.connection = pymysql.connect(
             host=HOST,
             port=int(PORT),
@@ -30,14 +29,6 @@ class aihelp:
             password =PASSWORD,
             database=DATABASE
 
-        )
-        
-        self.connection = pymysql.connect(
-            host=HOST,
-            port=int(PORT),
-            user=USER,
-            password =PASSWORD,
-            database=DATABASE
         )
         self.llm = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model_name='gpt-3.5-turbo',verbose=True,streaming=True,
     callbacks=[
@@ -86,17 +77,18 @@ class aihelp:
         )
         
         datas = cursor.fetchall() 
-        # for i in range(len(tblist)):
-        #     self.cursor.execute(
-        #     f"""
-        #     SELECT
-        #     *
-        #     FROM
-        #         {tblist[i]}
-        #     LIMIT 5
-        #     """
-        #     )
-        #     datas += self.cursor.fetchall()
+        for i in range(len(tblist)):
+            print(tblist[i])
+            cursor.execute(
+            f"""
+            SELECT
+            *
+            FROM
+                {tblist[i]}
+            LIMIT 5
+            """
+            )
+            datas += cursor.fetchall()
         cursor.close()
         logging.info(pd.DataFrame(datas))
         return pd.DataFrame(datas)
@@ -132,13 +124,17 @@ class aihelp:
             # result.append("Table Name:"+self.tbnm.content)
 
             # #해당 테이블에서 스키마를 검색하고 스키마를 통해서 쿼리를 가지고온다
-            template = """Based on the table schema below, Write a query that matches the rules
+            template = """
+            Based on the table schema below, 
+            Write a query that matches the rules,
+            DON'T make anything up.
+
             1. write a SQL query that would answer the user's question:
             2. SQL query style is MariaDB server
             3. query is only english 
             5. Add Korean alias to all columns
-            6. only use table in list variables {tbnm}
-            7. only use where  in schema
+            6. Use {tbnm} only for table names
+            7. only use where in schema
             {schema}
 
             Question: {question}
