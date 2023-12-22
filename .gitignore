@@ -2,5 +2,6 @@
 .streamlit/
 test/
 env/
+.cache/
 #파일무시
 aaa.py

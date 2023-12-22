@@ -6,27 +6,20 @@ st.set_page_config(
     page_icon='🏝️',
 )
 
+HOST=st.secrets["host"]
+PORT=st.secrets["port"]
+USER=st.secrets["user"]
+PASSWORD=st.secrets["password"]
+DATABASE=st.secrets["database"]
 
-# HOST=st.secrets["host"]
-# PORT=st.secrets["port"]
-# USER=st.secrets["user"]
-# PASSWORD=st.secrets["password"]
-# DATABASE=st.secrets["database"]
-
-# connection = pymysql.connect(
-#     host=HOST,
-#     port=int(PORT),
-#     user=USER,
-#     password =PASSWORD,
-#     database=DATABASE
-# )
 connection = pymysql.connect(
-            host='119.196.91.198',
-            port=3306,
-            user='hair',
-            password ='1234567890',
-            database='hairdb'
-        )
+    host=HOST,
+    port=int(PORT),
+    user=USER,
+    password =PASSWORD,
+    database=DATABASE
+)
+
 cursor = connection.cursor(pymysql.cursors.DictCursor)
 
 st.header("1.라벨링 작업 💾")

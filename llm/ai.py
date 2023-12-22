@@ -11,6 +11,9 @@ from langchain.prompts.chat import HumanMessagePromptTemplate
 import pymysql
 import pandas as pd
 import logging
+
+from llm.llmcallback import ChatCallbackHandler
+
 class aihelp:
     def __init__(self):
         OPENAI_API_KEY=st.secrets["OPENAI_API_KEY"]
@@ -36,7 +39,10 @@ class aihelp:
             password =PASSWORD,
             database=DATABASE
         )
-        self.llm = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model_name='gpt-3.5-turbo',verbose=True)
+        self.llm = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model_name='gpt-3.5-turbo',verbose=True,streaming=True,
+    callbacks=[
+        ChatCallbackHandler(),
+    ],)
         
     def retrieve_from_db(self,query: str) -> str:
         db_context = self.db(query)
