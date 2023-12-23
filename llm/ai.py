@@ -133,8 +133,9 @@ class aihelp:
             2. SQL query style is MariaDB server
             3. query is only english 
             5. Add Korean alias to all columns
-            6. Use {tbnm} only for table names
-            7. only use where in schema
+            6.You must select {tbnm} table from variable a and use all of them unconditionally.
+            7. The WHERE clause does not need to be written.
+            
             {schema}
 
             Question: {question}

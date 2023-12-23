@@ -27,6 +27,8 @@ def creattxtfile():
     text_file.close()
     
 def format_docs(docs):
+    # "\n\n".join(document.page_content for document in docs)
+    print(docs)
     return "\n\n".join(document.page_content for document in docs)
 
 def get_retriever():
@@ -86,13 +88,16 @@ def aksai(msg):
                 Write a query that matches the rules,
                 DON'T make anything up.
 
-                1. write a SQL query that would answer the user's question
+                1. write a SQL query that would answer the user's question:
                 2. SQL query style is MariaDB server
                 3. query is only english 
                 5. Add Korean alias to all columns
+                6.You must select table from variable a and use all of them unconditionally.
+                7. The WHERE clause does not need to be written.
                 
                 Context: {context}
-                """,
+                """
+                +f'table :{dbnm}',
             ),
             ("human", "{question}"),
         ]
@@ -111,40 +116,31 @@ def aksai(msg):
     st.write(sql.content)
     respone = l.run_query(sql.content)
     st.write(respone)
-
-    # promptex = ChatPromptTemplate.from_messages(
-    #     [
-    #         (
-    #             "system",
-    #             """
-    #             Please summary in Korean based on the Context and data questions below.
-    #             Context: {context}
-    #             """
-    #             +f'data :{pd.DataFrame(respone)}',
-    #         ),
-    #         ("human", "{question}"),
-    #     ]
-    # )
-    # exchain = (
-    #             {
-    #                 "context": ret | RunnableLambda(format_docs),
-    #                 "question": RunnablePassthrough(),
-    #             }
-    #             | promptex
-    #             | l.llmex
-    #         )
-    # exchain.invoke(msg)
-    # print(promptex)
     
-
-
 #데이터베이스 스키마정보 txt파일로 저장
 creattxtfile()
 
 ret =get_retriever()
+
 m = "2023년 11월 1일 비트코인 종가정보"
 st.header(m)
 aksai(m)
+
+# m = "2023년 11월 1일 이더리움 종가정보"
+# st.header(m)
+# aksai(m)
+
+# m = "2023년 11월 1일 이더리움과비트코인 종가정보"
+# st.header(m)
+# aksai(m)
+
+# m = "2023년 11월 1일부터 일주일간 이더리움 종가정보"
+# st.header(m)
+# aksai(m)
+
+# m = "2023년 11월 1일부터 일주일간 이더리움과비트코인 정보"
+# st.header(m)
+# aksai(m)
 
 # m = "restaurant 정보 5개만 알려줘"
 # st.header(m)
