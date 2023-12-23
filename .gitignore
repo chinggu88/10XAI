@@ -1,7 +1,4 @@
-#폴더무시
+## 파일 무시
+conf.txt
+evn/
 .streamlit/
-test/
-env/
-.cache/
-#파일무시
-aaa.py

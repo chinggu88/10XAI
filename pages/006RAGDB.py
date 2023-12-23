@@ -11,7 +11,6 @@ from langchain.chat_models import ChatOpenAI
 
 import streamlit as st
 
-from llm.llmcallback import ChatCallbackHandler
 
 l = ragllm()
 def creattxtfile():
@@ -35,7 +34,7 @@ def get_retriever():
 
     splitter = CharacterTextSplitter(
         separator = "\n\n",
-        chunk_size = 1000,
+        chunk_size = 1400,
         chunk_overlap  = 200,
         length_function = len,
         is_separator_regex = False,
@@ -50,6 +49,34 @@ def get_retriever():
     return retriever
 
 def aksai(msg):
+    #테이브 선택
+    dbprompt = ChatPromptTemplate.from_messages(
+        [
+            (
+                "system",
+                """
+                Based on the database schema below, write just a table_name that would answer the user's question:
+                {schema}
+                """,
+            ),
+            ("human", "{question}"),
+        ]
+    )
+    dbchain = (
+            {
+                "schema": ret | RunnableLambda(format_docs),
+                "question": RunnablePassthrough(),
+            }
+            | dbprompt
+            | l.llm
+        )
+
+
+    dbnm =dbchain.invoke(msg)
+    st.write(dbnm.content)
+    
+    st.write(dbnm)
+
     prompt = ChatPromptTemplate.from_messages(
         [
             (
@@ -83,42 +110,42 @@ def aksai(msg):
     sql =chain.invoke(msg)
     st.write(sql.content)
     respone = l.run_query(sql.content)
-    # st.write(msg)
-   
     st.write(respone)
-    promptex = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                """
-                Please summary in Korean based on the Context and data questions below.
-                Context: {context}
-                """
-                +f'data :{pd.DataFrame(respone)}',
-            ),
-            ("human", "{question}"),
-        ]
-    )
-    exchain = (
-                {
-                    "context": ret | RunnableLambda(format_docs),
-                    "question": RunnablePassthrough(),
-                }
-                | promptex
-                | l.llmex
-            )
-    exchain.invoke(msg)
-    print(promptex)
+
+    # promptex = ChatPromptTemplate.from_messages(
+    #     [
+    #         (
+    #             "system",
+    #             """
+    #             Please summary in Korean based on the Context and data questions below.
+    #             Context: {context}
+    #             """
+    #             +f'data :{pd.DataFrame(respone)}',
+    #         ),
+    #         ("human", "{question}"),
+    #     ]
+    # )
+    # exchain = (
+    #             {
+    #                 "context": ret | RunnableLambda(format_docs),
+    #                 "question": RunnablePassthrough(),
+    #             }
+    #             | promptex
+    #             | l.llmex
+    #         )
+    # exchain.invoke(msg)
+    # print(promptex)
     
 
 
-
+#데이터베이스 스키마정보 txt파일로 저장
 creattxtfile()
-ret =get_retriever()
-# m = "2023년 11월 1일 비트코인 종가정보"
-# st.header(m)
-# aksai(m)
 
-m = "restaurant 정보 5개만 알려줘"
+ret =get_retriever()
+m = "2023년 11월 1일 비트코인 종가정보"
 st.header(m)
 aksai(m)
+
+# m = "restaurant 정보 5개만 알려줘"
+# st.header(m)
+# aksai(m)

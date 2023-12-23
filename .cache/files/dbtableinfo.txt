@@ -1,0 +1,435 @@
+
+CREATE TABLE btcsdt_funding (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Time when the funding executed.', 
+	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci
+
+/*
+3 rows from btcsdt_funding table:
+symbol	time	fundin_rate
+BTCUSDT	2023-11-01 00:00:00	0.000100000000000000
+BTCUSDT	2023-11-01 00:00:00	0.000100000000000000
+BTCUSDT	2023-11-01 08:00:00	0.000100000000000000
+*/
+
+
+CREATE TABLE btcusdt_kline_1d (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='bitcoin daily price'
+
+/*
+3 rows from btcusdt_kline_1d table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+BTCUSDT	2023-11-01 00:00:00	34651.400000000000000000	35734.000000000000000000	34076.000000000000000000	35437.400000000000000000	469214.787000000000000000	235433.671000000000000000	16310840373.519040000000000000	8188069606.326840000000000000	5043007
+BTCUSDT	2023-11-02 00:00:00	35437.500000000000000000	35999.900000000000000000	34300.000000000000000000	34940.100000000000000000	410221.727000000000000000	195704.868000000000000000	14411069440.586430000000000000	6876495562.481800000000000000	4240505
+BTCUSDT	2023-11-03 00:00:00	34940.100000000000000000	34944.900000000000000000	34123.000000000000000000	34700.400000000000000000	306048.199000000000000000	149201.899000000000000000	10557775671.822270000000000000	5146880328.308160000000000000	3278797
+*/
+
+
+CREATE TABLE btcusdt_kline_1h (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='bitcoin 1 hour bar price'
+
+/*
+3 rows from btcusdt_kline_1h table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+BTCUSDT	2023-11-01 00:00:00	34651.400000000000000000	34684.000000000000000000	34506.700000000000000000	34522.300000000000000000	11707.408000000000000000	4599.907000000000000000	404972946.555460000000000000	159132500.408160000000000000	163247
+BTCUSDT	2023-11-01 01:00:00	34522.300000000000000000	34575.000000000000000000	34475.300000000000000000	34507.000000000000000000	5253.835000000000000000	2740.104000000000000000	181389345.060100000000000000	94613573.827100000000000000	75390
+BTCUSDT	2023-11-01 02:00:00	34507.000000000000000000	34512.000000000000000000	34434.500000000000000000	34466.200000000000000000	4224.729000000000000000	1730.027000000000000000	145672371.571000000000000000	59657794.657200000000000000	57249
+*/
+
+
+CREATE TABLE btcusdt_kline_5min (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='bitcoin 5 minute bar price'
+
+/*
+3 rows from btcusdt_kline_5min table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+BTCUSDT	2023-11-01 00:00:00	34651.400000000000000000	34684.000000000000000000	34592.000000000000000000	34615.400000000000000000	2006.010000000000000000	805.444000000000000000	69482909.328400000000000000	27904664.174200000000000000	22117
+BTCUSDT	2023-11-01 00:05:00	34615.400000000000000000	34673.100000000000000000	34594.300000000000000000	34611.600000000000000000	1518.841000000000000000	581.356000000000000000	52601487.995400000000000000	20137395.751700000000000000	19658
+BTCUSDT	2023-11-01 00:10:00	34611.700000000000000000	34619.000000000000000000	34584.300000000000000000	34604.600000000000000000	1013.438000000000000000	364.017000000000000000	35065545.222500000000000000	12595083.261600000000000000	14080
+*/
+
+
+CREATE TABLE dogeusdt_funding (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Time when the funding executed.', 
+	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci
+
+/*
+3 rows from dogeusdt_funding table:
+symbol	time	fundin_rate
+DOGEUSDT	2023-11-01 00:00:00	0.000100000000000000
+DOGEUSDT	2023-11-01 08:00:00	0.000100000000000000
+DOGEUSDT	2023-11-01 16:00:00	0.000100000000000000
+*/
+
+
+CREATE TABLE dogeusdt_kline_1d (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='dogecoin daily price'
+
+/*
+3 rows from dogeusdt_kline_1d table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+DOGEUSDT	2023-11-01 00:00:00	0.068270000000000000	0.069770000000000000	0.065550000000000000	0.068970000000000000	6365505310.000000000000000000	3077799902.000000000000000000	429913495.374100000000000000	207943463.949000000000000000	786160
+DOGEUSDT	2023-11-02 00:00:00	0.068980000000000000	0.070990000000000000	0.066610000000000000	0.067930000000000000	6770783058.000000000000000000	3219971819.000000000000000000	466342547.556130000000000000	221869474.762370000000000000	848545
+DOGEUSDT	2023-11-03 00:00:00	0.067930000000000000	0.068290000000000000	0.066190000000000000	0.068130000000000000	2955901670.000000000000000000	1439311025.000000000000000000	199204709.366630000000000000	97005066.255320000000000000	464235
+*/
+
+
+CREATE TABLE dogeusdt_kline_1h (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='dogecoin 1 hour bar price'
+
+/*
+3 rows from dogeusdt_kline_1h table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+DOGEUSDT	2023-11-01 00:00:00	0.068270000000000000	0.068610000000000000	0.067990000000000000	0.068010000000000000	291007801.000000000000000000	147906210.000000000000000000	19867946.793060000000000000	10099306.050000000000000000	31498
+DOGEUSDT	2023-11-01 01:00:00	0.068010000000000000	0.068130000000000000	0.067670000000000000	0.067720000000000000	148604307.000000000000000000	59728548.000000000000000000	10089158.062120000000000000	4055884.537560000000000000	20939
+DOGEUSDT	2023-11-01 02:00:00	0.067730000000000000	0.067920000000000000	0.067570000000000000	0.067630000000000000	73568235.000000000000000000	37123986.000000000000000000	4982808.689710000000000000	2514458.112770000000000000	11722
+*/
+
+
+CREATE TABLE dogeusdt_kline_5min (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='dogecoin 5 minute bar price'
+
+/*
+3 rows from dogeusdt_kline_5min table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+DOGEUSDT	2023-11-01 00:00:00	0.068270000000000000	0.068320000000000000	0.068070000000000000	0.068140000000000000	26377933.000000000000000000	13146100.000000000000000000	1798808.861360000000000000	896468.646680000000000000	3460
+DOGEUSDT	2023-11-01 00:05:00	0.068140000000000000	0.068270000000000000	0.068070000000000000	0.068160000000000000	25285861.000000000000000000	13774438.000000000000000000	1723755.409260000000000000	939066.562740000000000000	2424
+DOGEUSDT	2023-11-01 00:10:00	0.068160000000000000	0.068160000000000000	0.068070000000000000	0.068150000000000000	10523097.000000000000000000	5858351.000000000000000000	716815.322770000000000000	399079.205820000000000000	1388
+*/
+
+
+CREATE TABLE ethusdt_funding (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Time when the funding executed.', 
+	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci
+
+/*
+3 rows from ethusdt_funding table:
+symbol	time	fundin_rate
+ETHUSDT	2023-11-01 00:00:00	0.000100000000000000
+ETHUSDT	2023-11-01 08:00:00	0.000100000000000000
+ETHUSDT	2023-11-01 16:00:00	0.000100000000000000
+*/
+
+
+CREATE TABLE ethusdt_kline_1d (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='ethereum daily price'
+
+/*
+3 rows from ethusdt_kline_1d table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+ETHUSDT	2023-11-01 00:00:00	1815.660000000000000000	1861.630000000000000000	1782.730000000000000000	1848.200000000000000000	3596670.145000000000000000	1791212.171000000000000000	6543306690.189270000000000000	3259729542.970090000000000000	3191399
+ETHUSDT	2023-11-02 00:00:00	1848.200000000000000000	1876.260000000000000000	1784.000000000000000000	1800.680000000000000000	2902767.066000000000000000	1394011.396000000000000000	5310717363.585170000000000000	2551622630.557220000000000000	2745069
+ETHUSDT	2023-11-03 00:00:00	1800.680000000000000000	1834.320000000000000000	1775.360000000000000000	1832.490000000000000000	2284646.929000000000000000	1134916.177000000000000000	4119457491.290560000000000000	2046835562.763180000000000000	2333085
+*/
+
+
+CREATE TABLE ethusdt_kline_1h (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='ethereum 1 hour bar price'
+
+/*
+3 rows from ethusdt_kline_1h table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+ETHUSDT	2023-11-01 00:00:00	1815.660000000000000000	1831.280000000000000000	1812.820000000000000000	1819.350000000000000000	182721.281000000000000000	98117.932000000000000000	333061573.757410000000000000	178850619.760180000000000000	164222
+ETHUSDT	2023-11-01 01:00:00	1819.370000000000000000	1820.800000000000000000	1812.040000000000000000	1814.130000000000000000	74313.111000000000000000	32956.299000000000000000	134995208.193320000000000000	59873151.422680000000000000	67682
+ETHUSDT	2023-11-01 02:00:00	1814.130000000000000000	1815.000000000000000000	1809.000000000000000000	1811.790000000000000000	49776.382000000000000000	24503.122000000000000000	90207000.855020000000000000	44410199.843770000000000000	52596
+*/
+
+
+CREATE TABLE ethusdt_kline_5min (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='ethereum 5 minute bar price'
+
+/*
+3 rows from ethusdt_kline_5min table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+
+*/
+
+
+CREATE TABLE restaurant (
+	idx INTEGER(11) NOT NULL, 
+	title VARCHAR(45) NOT NULL, 
+	score VARCHAR(5) NOT NULL, 
+	region VARCHAR(10) NOT NULL, 
+	url VARCHAR(455) NOT NULL, 
+	statu TINYINT(4) DEFAULT 1
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB
+
+/*
+3 rows from restaurant table:
+idx	title	score	region	url	statu
+1	오한수우육면가	3.9	여의도	https://www.mangoplate.com/restaurants/FAI1kwcx2xBw	1
+2	파낙스	3.8	여의도	https://www.mangoplate.com/restaurants/t-t8wkagjn	1
+3	효뜨	3.8	여의도	https://www.mangoplate.com/restaurants/Woc7YBYziVyW	1
+*/
+
+
+CREATE TABLE solusdt_funding (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Time when the funding executed.', 
+	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci
+
+/*
+3 rows from solusdt_funding table:
+symbol	time	fundin_rate
+SOLUSDT	2023-11-01 00:00:00	0.000056760000000000
+SOLUSDT	2023-11-01 08:00:00	-0.000040600000000000
+SOLUSDT	2023-11-01 16:00:00	-0.000411290000000000
+*/
+
+
+CREATE TABLE solusdt_kline_1d (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='solana daily price'
+
+/*
+3 rows from solusdt_kline_1d table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+SOLUSDT	2023-11-01 00:00:00	38.373000000000000000	46.800000000000000000	37.759000000000000000	41.204000000000000000	128999836.000000000000000000	64628756.000000000000000000	5312567511.327000000000000000	2662937027.468000000000000000	6554793
+SOLUSDT	2023-11-02 00:00:00	41.203000000000000000	44.559000000000000000	38.646000000000000000	40.251000000000000000	93896013.000000000000000000	46394560.000000000000000000	3914225130.295000000000000000	1934343007.736000000000000000	4703770
+SOLUSDT	2023-11-03 00:00:00	40.248000000000000000	40.315000000000000000	37.917000000000000000	39.497000000000000000	60242220.000000000000000000	29902147.000000000000000000	2354990965.507000000000000000	1169395875.560000000000000000	2962822
+*/
+
+
+CREATE TABLE solusdt_kline_1h (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='solana 1 hour bar price'
+
+/*
+3 rows from solusdt_kline_1h table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+SOLUSDT	2023-11-01 00:00:00	38.373000000000000000	38.770000000000000000	37.853000000000000000	38.612000000000000000	3220617.000000000000000000	1564103.000000000000000000	123389517.408000000000000000	59945810.449000000000000000	157393
+SOLUSDT	2023-11-01 01:00:00	38.613000000000000000	38.789000000000000000	38.008000000000000000	38.647000000000000000	3154339.000000000000000000	1548110.000000000000000000	120932532.470000000000000000	59371339.280000000000000000	143269
+SOLUSDT	2023-11-01 02:00:00	38.646000000000000000	38.647000000000000000	37.922000000000000000	38.179000000000000000	1642651.000000000000000000	768452.000000000000000000	62699322.431000000000000000	29336737.588000000000000000	81565
+*/
+
+
+CREATE TABLE solusdt_kline_5min (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='solana 5 minute bar price'
+
+/*
+3 rows from solusdt_kline_5min table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+SOLUSDT	2023-11-01 00:00:00	38.373000000000000000	38.551000000000000000	38.125000000000000000	38.182000000000000000	489569.000000000000000000	210541.000000000000000000	18754916.871000000000000000	8067801.563000000000000000	23693
+SOLUSDT	2023-11-01 00:05:00	38.183000000000000000	38.352000000000000000	38.139000000000000000	38.165000000000000000	224150.000000000000000000	111775.000000000000000000	8570787.279000000000000000	4274969.913000000000000000	11473
+SOLUSDT	2023-11-01 00:10:00	38.164000000000000000	38.193000000000000000	38.105000000000000000	38.168000000000000000	193471.000000000000000000	92587.000000000000000000	7381070.954000000000000000	3532616.419000000000000000	9624
+*/
+
+
+CREATE TABLE xrpusdt_funding (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Time when the funding executed.', 
+	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci
+
+/*
+3 rows from xrpusdt_funding table:
+symbol	time	fundin_rate
+XRPUSDT	2023-11-01 00:00:00	0.000100000000000000
+XRPUSDT	2023-11-01 08:00:00	0.000100000000000000
+XRPUSDT	2023-11-01 16:00:00	0.000100000000000000
+*/
+
+
+CREATE TABLE xrpusdt_kline_1d (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='ripple daily price'
+
+/*
+3 rows from xrpusdt_kline_1d table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+XRPUSDT	2023-11-01 00:00:00	0.599700000000000000	0.617700000000000000	0.580200000000000000	0.609100000000000000	1745042349.700000000000000000	849055216.100000000000000000	1048639043.105920000000000000	510271380.314130000000000000	1143204
+XRPUSDT	2023-11-02 00:00:00	0.609100000000000000	0.627300000000000000	0.585700000000000000	0.605700000000000000	1679996338.800000000000000000	802552792.700000000000000000	1024781721.458480000000000000	489832927.913540000000000000	1158026
+XRPUSDT	2023-11-03 00:00:00	0.605800000000000000	0.615400000000000000	0.591400000000000000	0.612400000000000000	880215391.200000000000000000	427340204.700000000000000000	531893947.553380000000000000	258199509.131250000000000000	841352
+*/
+
+
+CREATE TABLE xrpusdt_kline_1h (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='ripple 1 hour bar price'
+
+/*
+3 rows from xrpusdt_kline_1h table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+XRPUSDT	2023-11-01 00:00:00	0.599700000000000000	0.600000000000000000	0.594200000000000000	0.594500000000000000	39080063.400000000000000000	16212919.800000000000000000	23322782.909570000000000000	9676327.092190000000000000	27095
+XRPUSDT	2023-11-01 01:00:00	0.594500000000000000	0.596300000000000000	0.592700000000000000	0.594400000000000000	26490716.200000000000000000	12397168.300000000000000000	15747714.155810000000000000	7370522.547500000000000000	18592
+XRPUSDT	2023-11-01 02:00:00	0.594400000000000000	0.596200000000000000	0.593200000000000000	0.595400000000000000	16025663.800000000000000000	8120881.100000000000000000	9532767.050590000000000000	4831910.526460000000000000	13274
+*/
+
+
+CREATE TABLE xrpusdt_kline_5min (
+	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
+	time DATETIME COMMENT 'Opening time of the candlestick.', 
+	open VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Opening price in the timeframe.', 
+	high VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Highest price in the timeframe.', 
+	low VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Lowest price in the timeframe.', 
+	close VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Closing price in the timeframe.', 
+	base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the base asset of the symbol.', 
+	buy_base_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the base asset of the symbol.', 
+	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
+	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
+	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB COLLATE utf8mb4_unicode_ci COMMENT='ripple 5 minute bar price'
+
+/*
+3 rows from xrpusdt_kline_5min table:
+symbol	time	open	high	low	close	base_volume	buy_base_volume	quote_volume	buy_quote_volume	trade_count
+XRPUSDT	2023-11-01 00:00:00	0.599700000000000000	0.600000000000000000	0.597200000000000000	0.597500000000000000	6428739.500000000000000000	2135618.300000000000000000	3846169.291680000000000000	1277598.460520000000000000	4358
+XRPUSDT	2023-11-01 00:05:00	0.597600000000000000	0.598300000000000000	0.596200000000000000	0.596600000000000000	4422137.400000000000000000	1743037.800000000000000000	2641751.884550000000000000	1041475.671410000000000000	3064
+XRPUSDT	2023-11-01 00:10:00	0.596600000000000000	0.597500000000000000	0.595500000000000000	0.597400000000000000	5289230.300000000000000000	2640726.900000000000000000	3155038.128410000000000000	1575694.994770000000000000	3101
+*/
