@@ -39,6 +39,7 @@ if msg:
     with st.spinner("물어보는중"):
         #ai에 묻기
         data = ai.messageai(msg)
+        # data = ai.convertenlish(msg)
         history.add_ai_message(data)
         # send_msg(data,"ai")
         for i in range(len(data)):

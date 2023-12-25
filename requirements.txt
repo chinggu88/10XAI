@@ -11,3 +11,4 @@ tiktoken
 unstructured
 unstructured[pdf]
 faiss-cpu
+mysqlclient

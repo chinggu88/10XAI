@@ -100,12 +100,39 @@ class aihelp:
         cursor.close()
         return pd.DataFrame(datas)
     
+    def convertenlish(self,ask):
+        translate = """
+            Translate incoming Question to English without changing the meaning.
+            Question: {question}
+            """
+        translate_prompt = ChatPromptTemplate.from_template(translate)
+
+        translate_response = (
+         translate_prompt
+        | self.llm
+        )
+        res = translate_response.invoke({"question":ask})
+        return res.content
     def messageai(self,ask):
         try:
             #답변
             result =[]
+            #영어로 변역
+            translate = """
+            Translate incoming Question to English without changing the meaning.
+            Question: {question}
+            """
+            translate_prompt = ChatPromptTemplate.from_template(translate)
+
+            translate_response = (
+            translate_prompt
+            | self.llm
+            )
+            task = translate_response.invoke({"question":ask})
             #table 선택   
-            template = """Based on the database schema below, write just a table_name that would answer the user's question:
+            template = """Based on the database schema below, 
+            write just a table_name that would answer the user's question
+            Exclude the custom_message_store table:
             {schema}
 
             Question: {question}
@@ -119,7 +146,7 @@ class aihelp:
             )
             
 
-            self.tbnm = sql_response.invoke({"question": ask})
+            self.tbnm = sql_response.invoke({"question": task})
             logging.info(f'table is here : {self.tbnm.content}' )
             # result.append("Table Name:"+self.tbnm.content)
 
@@ -133,9 +160,9 @@ class aihelp:
             2. SQL query style is MariaDB server
             3. query is only english 
             5. Add Korean alias to all columns
-            6.You must select {tbnm} table from variable a and use all of them unconditionally.
-            7. The WHERE clause does not need to be written.
-            
+            6. You must select {tbnm} table from variable a and use all of them unconditionally.
+            7. The WHERE clause is not required to be written
+
             {schema}
 
             Question: {question}
@@ -148,7 +175,7 @@ class aihelp:
             | self.llm
             )
             
-            sql = sql_response.invoke({"question": ask,"tbnm":self.tbnm})
+            sql = sql_response.invoke({"question": task,"tbnm":self.tbnm})
             logging.warning(f'query :{sql.content}')
             # result.append("final sql:"+sql.content)
             result.append(self.run_query(sql.content))

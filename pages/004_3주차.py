@@ -8,6 +8,9 @@ st.set_page_config(
     page_icon='🏝️',
 )
 
+"""
+
+"""
 llm1, llm2, llm3,llm4 = st.tabs(["TABLE정보불러오기  👉🏻","TABLE정보불러오기 👉🏻","쿼리실행 👉🏻","결과"])
 
 with llm1:
