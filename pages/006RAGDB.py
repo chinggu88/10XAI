@@ -8,7 +8,7 @@ from langchain.storage import LocalFileStore
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores.faiss import FAISS
 from langchain.chat_models import ChatOpenAI
-
+import pymysql
 import streamlit as st
 
 
@@ -28,7 +28,6 @@ def creattxtfile():
     
 def format_docs(docs):
     # "\n\n".join(document.page_content for document in docs)
-    print(docs)
     return "\n\n".join(document.page_content for document in docs)
 
 def get_retriever():
@@ -49,6 +48,8 @@ def get_retriever():
     vectorstore = FAISS.from_documents(docs, cached_embeddings)
     retriever = vectorstore.as_retriever()
     return retriever
+
+
 
 def aksai(msg):
     #테이브 선택
@@ -78,7 +79,21 @@ def aksai(msg):
     st.write(dbnm.content)
     
     st.write(dbnm)
-
+    # tbnms=''
+    # for i in range(len(dbnm.content)):
+    #     tbnms +=f"'{dbnm.content[i]}'"
+    #     if i <len(dbnm.content)-1:
+    #         tbnms +=","
+    # print(tbnms)
+    query =   f"""
+            SELECT COLUMN_NAME,COLUMN_COMMENT
+            FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE TABLE_SCHEMA='hairdb'  
+            AND TABLE_NAME in ('{dbnm.content}');
+            """
+    
+    colum = l.run_query(query)
+    print(colum)
     prompt = ChatPromptTemplate.from_messages(
         [
             (
@@ -92,12 +107,13 @@ def aksai(msg):
                 2. SQL query style is MariaDB server
                 3. query is only english 
                 5. Add Korean alias to all columns
-                6.You must select table from variable a and use all of them unconditionally.
+                6.You must select table from variable table and use all of them unconditionally.
                 7. The WHERE clause does not need to be written.
-                
+                8. The WHERE clause can only be selected within variable colum.
+
                 Context: {context}
                 """
-                +f'table :{dbnm}',
+                +f'table :{dbnm} colum:{colum}',
             ),
             ("human", "{question}"),
         ]
@@ -122,17 +138,17 @@ creattxtfile()
 
 ret =get_retriever()
 
-m = "2023년 11월 1일 비트코인 종가정보"
-st.header(m)
-aksai(m)
+# m = "2023년 11월 1일 비트코인 종가정보"
+# st.header(m)
+# aksai(m)
 
 # m = "2023년 11월 1일 이더리움 종가정보"
 # st.header(m)
 # aksai(m)
 
-# m = "2023년 11월 1일 이더리움과비트코인 종가정보"
-# st.header(m)
-# aksai(m)
+m = "2023년 11월 1일 이더리움,비트코인 정보"
+st.header(m)
+aksai(m)
 
 # m = "2023년 11월 1일부터 일주일간 이더리움 종가정보"
 # st.header(m)

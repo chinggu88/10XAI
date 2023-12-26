@@ -90,9 +90,27 @@ class aihelp:
             )
             datas += cursor.fetchall()
         cursor.close()
-        logging.info(pd.DataFrame(datas))
+        logging.error(pd.DataFrame(datas))
         return pd.DataFrame(datas)
-
+    def get_columinfo(self):
+        cursor = self.connection.cursor(pymysql.cursors.DictCursor)
+        tblist = str(self.tbnm.content).split(',')
+        tbnms =""""""
+        for i in range(len(tblist)):
+            tbnms +=f"'{tblist[i]}'"
+            if i <len(tblist)-1:
+                tbnms +=","
+        cursor.execute(
+            f"""
+            SELECT COLUMN_NAME,COLUMN_COMMENT
+            FROM INFORMATION_SCHEMA.COLUMNS
+            WHERE TABLE_SCHEMA='hairdb'  
+            AND TABLE_NAME in ({tbnms});
+            """
+        )
+        datas = cursor.fetchall() 
+        cursor.close()
+        return pd.DataFrame(datas)
     def run_query(self,query):
         cursor = self.connection.cursor(pymysql.cursors.DictCursor)
         cursor.execute(query)
@@ -147,7 +165,10 @@ class aihelp:
             
 
             self.tbnm = sql_response.invoke({"question": task})
-            logging.info(f'table is here : {self.tbnm.content}' )
+            self.colum = self.get_columinfo()
+            # logging.error(f'table is here : {self.tbnm.content}' )
+            # logging.error(f'colum is here : {self.colum }' )
+            print(self.colum)
             # result.append("Table Name:"+self.tbnm.content)
 
             # #해당 테이블에서 스키마를 검색하고 스키마를 통해서 쿼리를 가지고온다
@@ -158,9 +179,9 @@ class aihelp:
 
             1. write a SQL query that would answer the user's question:
             2. SQL query style is MariaDB server
-            3. query is only english 
-            5. Add Korean alias to all columns
-            6. You must select {tbnm} table from variable a and use all of them unconditionally.
+            3. query is only english but Add Korean alias to all columns
+            5. You must select {tbnm} table and use all of them unconditionally.
+            6. The WHERE clause can only be selected within {colum}.
             7. The WHERE clause is not required to be written
 
             {schema}
@@ -175,7 +196,7 @@ class aihelp:
             | self.llm
             )
             
-            sql = sql_response.invoke({"question": task,"tbnm":self.tbnm})
+            sql = sql_response.invoke({"question": task,"tbnm":self.tbnm,"colum":self.colum})
             logging.warning(f'query :{sql.content}')
             # result.append("final sql:"+sql.content)
             result.append(self.run_query(sql.content))
