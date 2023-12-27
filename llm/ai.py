@@ -77,8 +77,8 @@ class aihelp:
         )
         
         datas = cursor.fetchall() 
+       
         for i in range(len(tblist)):
-            print(tblist[i])
             cursor.execute(
             f"""
             SELECT
@@ -100,6 +100,7 @@ class aihelp:
             tbnms +=f"'{tblist[i]}'"
             if i <len(tblist)-1:
                 tbnms +=","
+        print('tbnms',tbnms)
         cursor.execute(
             f"""
             SELECT COLUMN_NAME,COLUMN_COMMENT
@@ -147,14 +148,16 @@ class aihelp:
             | self.llm
             )
             task = translate_response.invoke({"question":ask})
+            print(f'convert to eng : ${task}')
             #table 선택   
-            template = """Based on the database schema below, 
-            write just a table_name that would answer the user's question
-            Exclude the custom_message_store table:
+            template = """A schema is a list of tables in a database and the information that describes them. 
+            Based on the database schema below, Answer only table names that can answer the user's question.
             {schema}
 
             Question: {question}
+            example: btcusdt_kline_1d,dogeusdt_kline_1d,ethusdt_kline_1d
             """
+            
             prompt = ChatPromptTemplate.from_template(template)
 
             sql_response = (
@@ -165,10 +168,12 @@ class aihelp:
             
 
             self.tbnm = sql_response.invoke({"question": task})
+            print(f'tbnm  : ${self.tbnm.content}')
             self.colum = self.get_columinfo()
+            
+            print(f'colum : ${self.colum}')
             # logging.error(f'table is here : {self.tbnm.content}' )
             # logging.error(f'colum is here : {self.colum }' )
-            print(self.colum)
             # result.append("Table Name:"+self.tbnm.content)
 
             # #해당 테이블에서 스키마를 검색하고 스키마를 통해서 쿼리를 가지고온다
@@ -197,7 +202,8 @@ class aihelp:
             )
             
             sql = sql_response.invoke({"question": task,"tbnm":self.tbnm,"colum":self.colum})
-            logging.warning(f'query :{sql.content}')
+            print(sql.content)
+            logging.error(f'query :{sql.content}')
             # result.append("final sql:"+sql.content)
             result.append(self.run_query(sql.content))
             return result

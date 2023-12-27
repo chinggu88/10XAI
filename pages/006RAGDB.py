@@ -154,9 +154,9 @@ aksai(m)
 # st.header(m)
 # aksai(m)
 
-# m = "2023년 11월 1일부터 일주일간 이더리움과비트코인 정보"
-# st.header(m)
-# aksai(m)
+m = "2023년 11월 1일부터 일주일간 이더리움과비트코인 정보"
+st.header(m)
+aksai(m)
 
 # m = "restaurant 정보 5개만 알려줘"
 # st.header(m)
