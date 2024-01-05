@@ -3,7 +3,7 @@ CREATE TABLE btcsdt_funding (
 	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
 	time DATETIME COMMENT 'Time when the funding executed.', 
 	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB
 
 /*
 3 rows from btcsdt_funding table:
@@ -26,7 +26,7 @@ CREATE TABLE btcusdt_kline_1d (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='bitcoin daily price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='bitcoin daily price' ENGINE=InnoDB
 
 /*
 3 rows from btcusdt_kline_1d table:
@@ -49,7 +49,7 @@ CREATE TABLE btcusdt_kline_1h (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='bitcoin 1 hour bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='bitcoin 1 hour bar price' ENGINE=InnoDB
 
 /*
 3 rows from btcusdt_kline_1h table:
@@ -72,7 +72,7 @@ CREATE TABLE btcusdt_kline_5min (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='bitcoin 5 minute bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='bitcoin 5 minute bar price' ENGINE=InnoDB
 
 /*
 3 rows from btcusdt_kline_5min table:
@@ -91,7 +91,7 @@ CREATE TABLE custom_message_store (
 	created_at DATETIME, 
 	author_email VARCHAR(45) COLLATE utf8mb4_unicode_ci, 
 	PRIMARY KEY (id)
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB
 
 /*
 3 rows from custom_message_store table:
@@ -104,7 +104,7 @@ CREATE TABLE dogeusdt_funding (
 	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
 	time DATETIME COMMENT 'Time when the funding executed.', 
 	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB
 
 /*
 3 rows from dogeusdt_funding table:
@@ -127,7 +127,7 @@ CREATE TABLE dogeusdt_kline_1d (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='dogecoin daily price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='dogecoin daily price' ENGINE=InnoDB
 
 /*
 3 rows from dogeusdt_kline_1d table:
@@ -150,7 +150,7 @@ CREATE TABLE dogeusdt_kline_1h (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='dogecoin 1 hour bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='dogecoin 1 hour bar price' ENGINE=InnoDB
 
 /*
 3 rows from dogeusdt_kline_1h table:
@@ -173,7 +173,7 @@ CREATE TABLE dogeusdt_kline_5min (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='dogecoin 5 minute bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='dogecoin 5 minute bar price' ENGINE=InnoDB
 
 /*
 3 rows from dogeusdt_kline_5min table:
@@ -188,7 +188,7 @@ CREATE TABLE ethusdt_funding (
 	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
 	time DATETIME COMMENT 'Time when the funding executed.', 
 	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB
 
 /*
 3 rows from ethusdt_funding table:
@@ -211,7 +211,7 @@ CREATE TABLE ethusdt_kline_1d (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ethereum daily price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ethereum daily price' ENGINE=InnoDB
 
 /*
 3 rows from ethusdt_kline_1d table:
@@ -234,7 +234,7 @@ CREATE TABLE ethusdt_kline_1h (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ethereum 1 hour bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ethereum 1 hour bar price' ENGINE=InnoDB
 
 /*
 3 rows from ethusdt_kline_1h table:
@@ -257,7 +257,7 @@ CREATE TABLE ethusdt_kline_5min (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ethereum 5 minute bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ethereum 5 minute bar price' ENGINE=InnoDB
 
 /*
 3 rows from ethusdt_kline_5min table:
@@ -273,7 +273,7 @@ CREATE TABLE restaurant (
 	region VARCHAR(10) NOT NULL, 
 	url VARCHAR(455) NOT NULL, 
 	statu TINYINT(4) DEFAULT 1
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+)DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB
 
 /*
 3 rows from restaurant table:
@@ -288,7 +288,7 @@ CREATE TABLE solusdt_funding (
 	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
 	time DATETIME COMMENT 'Time when the funding executed.', 
 	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB
 
 /*
 3 rows from solusdt_funding table:
@@ -311,7 +311,7 @@ CREATE TABLE solusdt_kline_1d (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='solana daily price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='solana daily price' ENGINE=InnoDB
 
 /*
 3 rows from solusdt_kline_1d table:
@@ -334,7 +334,7 @@ CREATE TABLE solusdt_kline_1h (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='solana 1 hour bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='solana 1 hour bar price' ENGINE=InnoDB
 
 /*
 3 rows from solusdt_kline_1h table:
@@ -357,7 +357,7 @@ CREATE TABLE solusdt_kline_5min (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='solana 5 minute bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='solana 5 minute bar price' ENGINE=InnoDB
 
 /*
 3 rows from solusdt_kline_5min table:
@@ -372,7 +372,7 @@ CREATE TABLE xrpusdt_funding (
 	symbol VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Name of the symbol. Usually it is created by concatenating the name of the base asset and the quote asset.', 
 	time DATETIME COMMENT 'Time when the funding executed.', 
 	fundin_rate VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Funding rate paid by position holders. If the value is positive, then long position holders pay this rate to short position holders. If the value is negative, then short position holders pay this rate to long position.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 ENGINE=InnoDB
 
 /*
 3 rows from xrpusdt_funding table:
@@ -395,7 +395,7 @@ CREATE TABLE xrpusdt_kline_1d (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ripple daily price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ripple daily price' ENGINE=InnoDB
 
 /*
 3 rows from xrpusdt_kline_1d table:
@@ -418,7 +418,7 @@ CREATE TABLE xrpusdt_kline_1h (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ripple 1 hour bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ripple 1 hour bar price' ENGINE=InnoDB
 
 /*
 3 rows from xrpusdt_kline_1h table:
@@ -441,7 +441,7 @@ CREATE TABLE xrpusdt_kline_5min (
 	quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume in the quote asset of the symbol.', 
 	buy_quote_volume VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade volume created by taker buy orders in the quote asset of the symbol.', 
 	trade_count VARCHAR(45) COLLATE utf8mb4_unicode_ci COMMENT 'Total trade number in the timeframe.'
-)ENGINE=InnoDB COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ripple 5 minute bar price'
+)COLLATE utf8mb4_unicode_ci DEFAULT CHARSET=utf8mb4 COMMENT='ripple 5 minute bar price' ENGINE=InnoDB
 
 /*
 3 rows from xrpusdt_kline_5min table:

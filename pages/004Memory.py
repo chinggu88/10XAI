@@ -13,7 +13,6 @@ st.set_page_config(
     page_icon="🙉",
 )
 def load_memory(input):
-    print(input)
     return m.load_memory_variables({})['chain_history']
 
 def invoke_chain(question):
@@ -21,7 +20,7 @@ def invoke_chain(question):
         "question":question
     })
     m.save_context({"inpurt":question},{"ouput":res.content})
-    print(res)
+    st.write(res.content)
 # def add_msg(input,output):
 #     wm.save_context({"input":input},{'output':output})
 # def get_histoty():
@@ -51,5 +50,6 @@ chain = RunnablePassthrough.assign(chain_history=load_memory) | pormpttemp | llm
 
 
 
-invoke_chain("my name is lee kang hun")
-invoke_chain("what is my name?")
+invoke_chain("3! 값을 알려줘")
+invoke_chain("거기서 3을 더해줘")
+# invoke_chain("repeat again")

@@ -12,16 +12,6 @@ if "msg" not in st.session_state:
 def send_msg(msg,role,save = True):
     with st.chat_message(role):
         st.write(msg)
-        # if role == "human":
-        #     st.write(msg)    
-        # elif st.write(msg[0]) != None:
-        #     print(len(msg))
-        #     for i in range(len(msg)):
-        #         if i ==1:
-        #             st.code(msg[i])    
-        #         else:
-        #             st.write(msg[i])
-        
     #저장
     if save:
         st.session_state["msg"].append({"msg":msg,"role":role})
@@ -43,4 +33,8 @@ if msg:
         history.add_ai_message(data)
         # send_msg(data,"ai")
         for i in range(len(data)):
+            print('=======================')
+            print(data[i])
+            print('=======================')
+            # send_msg(st.metric(label="비트코인", value=data[i]['가격'][0], delta=float(data[i]['가격'][1])-float(data[i]['가격'][0])),"ai")
             send_msg(data[i],"ai")
