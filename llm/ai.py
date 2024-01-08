@@ -163,7 +163,6 @@ class aihelp:
                                 where a.emp_no = b.emp_no and b.dept_no = c.dept_no and a.emp_no = d.emp_no and a.emp_no='10011'
                                 order by d.salary desc
                                 """
-                
             }
             embeddings = OpenAIEmbeddings()
 
@@ -192,7 +191,6 @@ class aihelp:
                          - json key is query,score
                          - query is your answer query or N
                          - score is similar number
-
                         """,
                     ),
                     ("human", "{question}"),
@@ -233,7 +231,7 @@ class aihelp:
                 {schema}
 
                 Question: {question}
-                example: btcusdt_kline_1d,dogeusdt_kline_1d,ethusdt_kline_1d
+                example: dept_emp,employees,salaries
                 """
                 
                 prompt = ChatPromptTemplate.from_template(template)
