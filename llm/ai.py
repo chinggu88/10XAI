@@ -217,9 +217,8 @@ class aihelp:
                         6. Score how similar they are on a scale of 0-100.
                         7. Your answer should be in JSON format like this
                          - json key is query,score
-                         - query is your answer query or "N"
-                         - score is similar number in Context
-                        
+                         - query is your answer query or N
+                         - score is similar number
                         """,
                     ),
                     ("human", "{question}"),
@@ -260,7 +259,7 @@ class aihelp:
                 {schema}
 
                 Question: {question}
-                example: btcusdt_kline_1d,dogeusdt_kline_1d,ethusdt_kline_1d
+                example: dept_emp,employees,salaries
                 """
                 
                 prompt = ChatPromptTemplate.from_template(template)
