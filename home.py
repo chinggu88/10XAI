@@ -10,7 +10,8 @@ st.subheader('🦜🔗 langchain을 이용해서 Database 정보를 조희 및 �
 
 st.chat_message("ai").write(
     """
-    HI
-    can i help you
+    Hi \n
+    can i help you \n
+    🍎
     """
 )

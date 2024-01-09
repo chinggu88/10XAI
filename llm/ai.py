@@ -122,10 +122,18 @@ class aihelp:
         datas = cursor.fetchall() 
         cursor.close()
         return pd.DataFrame(datas)
-    def run_query(self,query):
+    def run_query(self,query,ask):
         cursor = self.connection.cursor(pymysql.cursors.DictCursor)
         cursor.execute(query)
         datas = cursor.fetchall() 
+        
+        #데이터가 없을경우 예외처리 
+        if len(pd.DataFrame(datas)) == 0:
+            insertquery =f"""
+                        INSERT INTO miss_ask(ask,query,insert_date)
+                        VALUES ('{ask}','{query}',now())
+                        """
+            cursor.execute(insertquery)
         cursor.close()
         return pd.DataFrame(datas)
     
@@ -150,19 +158,38 @@ class aihelp:
             few_shots = {
                 "총직원의수":"select count(*) from employees",
                 "직원의 정보": """
-                            SELECT a.emp_no AS '직원 고유 번호', a.birth_date AS '태어난 날짜', a.first_name AS '성', a.last_name AS '이름', a.gender AS '성별', a.hire_date AS '입사날짜',
-                            c.dept_name as '부서명',d.salary as '임금'
-                            FROM employees as a,dept_emp as b, departments as c,salaries as d
-                            where a.emp_no = b.emp_no and b.dept_no = c.dept_no and a.emp_no = d.emp_no
-                            order by d.salary desc
+                            SELECT emp_no AS '직원 고유 번호', birth_date AS '태어난 날짜', first_name AS '성', last_name AS '이름', gender AS '성별', hire_date AS '입사날짜'
+                            FROM employees   
+                            """,
+                "name의 정보":"""
+                            SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '성', a.last_name AS '이름', a.hire_date AS '입사날짜',
+                            FROM employees as a
+                            where a.first_name like '%name%' or a.last_name like '%name%'
                             """,
                 "직원의 임금 정보":"""
-                                SELECT a.first_name AS '성', a.last_name AS '이름', a.gender AS '성별', a.hire_date AS '입사날짜',
-                                c.dept_name as '부서명',d.salary as '임금'
-                                FROM employees as a,dept_emp as b, departments as c,salaries as d
-                                where a.emp_no = b.emp_no and b.dept_no = c.dept_no and a.emp_no = d.emp_no and a.emp_no='10011'
-                                order by d.salary desc
-                                """
+                                SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '성', a.last_name AS '이름', a.hire_date AS '입사날짜',
+                                b.salary as '임금'
+                                FROM employees as a, salaries as b
+                                where  a.emp_no = b.emp_no and a.emp_no ='10003'
+                                order by b.salary desc 
+                                limit 1
+                                """,
+                "직원의 부서 정보":"""
+                SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '성', a.last_name AS '이름', a.hire_date AS '입사날짜',
+                            c.dept_name as '부서',
+                            b.from_date as '발령날짜',
+                            b.to_date as '종료날짜'
+                            FROM employees as a, dept_emp as b,departments as c
+                            where  a.emp_no = b.emp_no and b.dept_no = c.dept_no
+                                """,
+                "매니저 정보":"""
+                            SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '성', a.last_name AS '이름', a.hire_date AS '입사날짜'
+                            FROM employees as a, dept_manager as b
+                            where  a.emp_no = b.emp_no 
+                            """,
+                "전체 정보":"""""",
+                "테이블 정보":"""""",
+                "매니저 임금정보":"""""",
                 
             }
             embeddings = OpenAIEmbeddings()
@@ -190,9 +217,9 @@ class aihelp:
                         6. Score how similar they are on a scale of 0-100.
                         7. Your answer should be in JSON format like this
                          - json key is query,score
-                         - query is your answer query or N
-                         - score is similar number
-
+                         - query is your answer query or "N"
+                         - score is similar number in Context
+                        
                         """,
                     ),
                     ("human", "{question}"),
@@ -207,7 +234,7 @@ class aihelp:
                 | self.llm
             )
             ex = ex_chain.invoke(ask)
-            print(ex.content)
+            print(f'json anser {ex.content}')
             json_object = json.loads(ex.content)
             print(json_object)
             #답변
@@ -303,15 +330,25 @@ class aihelp:
                 
                 sql = sql_response.invoke({"question": task,"tbnm":self.tbnm,"column":self.column,"columex":self.tbex})
                 self.m.save_context({"inpurt":ask},{"ouput":sql.content})
-                print(self.m.load_memory_variables({})['chain_history'])
+                # print(self.m.load_memory_variables({})['chain_history'])
                 logging.error(f'query :{sql.content}')
-                result.append(self.run_query(sql.content))
+                result.append(self.run_query(sql.content,ask))
             else:
                 self.m.save_context({"inpurt":ask},{"ouput":json_object['query']})
-                result.append(self.run_query(json_object['query']))
+                result.append(self.run_query(json_object['query'],ask))
             return result
         except Exception as e:
             logging.warning(e)
+            
+            insertquery =f"""
+                        INSERT INTO miss_ask(ask,query,insert_date)
+                        VALUES ({ask},{str(e)},now())
+                        """
+            print('=================================')
+            print(insertquery)
+            cursor = self.connection.cursor(pymysql.cursors.DictCursor)
+            cursor.execute(insertquery)
+            cursor.close()
             return [f'데이터를 불러오는데 실패했습니다. ${e}']
         
     def messageaiplus(self,ask):
