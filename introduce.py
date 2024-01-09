@@ -10,7 +10,7 @@ st.set_page_config(
 st.title("10XAI GPT PROJECT")
 st.subheader('🦜🔗 langchain을 이용해서 DATABASE 정보를 조희 및 표현')
 
-st.image('img/intro.png')
+st.image('img/intro.png',width=500)
 st.subheader('공감하시나요??🥊')
 
 st.subheader('데이터베이스 정보에서\n')
