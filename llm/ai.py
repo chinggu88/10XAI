@@ -158,16 +158,16 @@ class aihelp:
             few_shots = {
                 "총직원의수":"select count(*) from employees",
                 "직원의 정보": """
-                            SELECT emp_no AS '직원 고유 번호', birth_date AS '태어난 날짜', first_name AS '성', last_name AS '이름', gender AS '성별', hire_date AS '입사날짜'
+                            SELECT emp_no AS '직원 고유 번호', birth_date AS '태어난 날짜', first_name AS '이름', last_name AS '성', gender AS '성별', hire_date AS '입사날짜'
                             FROM employees   
                             """,
                 "name의 정보":"""
-                            SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '성', a.last_name AS '이름', a.hire_date AS '입사날짜',
+                            SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '이름', a.last_name AS '성', a.hire_date AS '입사날짜',
                             FROM employees as a
                             where a.first_name like '%name%' or a.last_name like '%name%'
                             """,
                 "직원의 임금 정보":"""
-                                SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '성', a.last_name AS '이름', a.hire_date AS '입사날짜',
+                                SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '이름', a.last_name AS '성', a.hire_date AS '입사날짜',
                                 b.salary as '임금'
                                 FROM employees as a, salaries as b
                                 where  a.emp_no = b.emp_no and a.emp_no ='10003'
@@ -175,7 +175,7 @@ class aihelp:
                                 limit 1
                                 """,
                 "직원의 부서 정보":"""
-                SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '성', a.last_name AS '이름', a.hire_date AS '입사날짜',
+                SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '이름', a.last_name AS '성', a.hire_date AS '입사날짜',
                             c.dept_name as '부서',
                             b.from_date as '발령날짜',
                             b.to_date as '종료날짜'
@@ -183,7 +183,7 @@ class aihelp:
                             where  a.emp_no = b.emp_no and b.dept_no = c.dept_no
                                 """,
                 "매니저 정보":"""
-                            SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '성', a.last_name AS '이름', a.hire_date AS '입사날짜'
+                            SELECT a.emp_no AS '직원 고유 번호',a.first_name AS '이름', a.last_name AS '성', a.hire_date AS '입사날짜'
                             FROM employees as a, dept_manager as b
                             where  a.emp_no = b.emp_no 
                             """,
