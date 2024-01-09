@@ -332,9 +332,12 @@ class aihelp:
                 # print(self.m.load_memory_variables({})['chain_history'])
                 logging.error(f'query :{sql.content}')
                 result.append(self.run_query(sql.content,ask))
+                result.append(sql.content)
             else:
                 self.m.save_context({"inpurt":ask},{"ouput":json_object['query']})
+
                 result.append(self.run_query(json_object['query'],ask))
+                result.append(json_object['query'])
             return result
         except Exception as e:
             logging.warning(e)

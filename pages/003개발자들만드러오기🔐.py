@@ -3,20 +3,25 @@ from llm.ai import aihelp
 from langchain.memory import StreamlitChatMessageHistory
 
 from llm.customai import customai
-history = StreamlitChatMessageHistory(key="chat_messages")
+history = StreamlitChatMessageHistory(key="dev_messages")
 ai = aihelp()
-if "msg" not in st.session_state:
-    st.session_state["msg"] =[]
+if "dev_msg" not in st.session_state:
+    st.session_state["dev_msg"] =[]
     
 
 def send_msg(msg,role,save = True):
     with st.chat_message(role):
-        st.write(msg)
+        if role == 'human':
+            st.write(msg)
+        else:
+            st.write(msg[0])
+            st.code(msg[1])
+        
     #저장
     if save:
-        st.session_state["msg"].append({"msg":msg,"role":role})
+        st.session_state["dev_msg"].append({"msg":msg,"role":role})
     
-for msg in st.session_state["msg"]:
+for msg in st.session_state["dev_msg"]:
     send_msg(msg["msg"],msg['role'],False) 
     
 
@@ -31,10 +36,6 @@ if msg:
         data = ai.messageai(msg)
         # data = ai.convertenlish(msg)
         history.add_ai_message(data)
-        # send_msg(data,"ai")
-        for i in range(len(data)):
-            print('=======================')
-            print(data[i])
-            print('=======================')
-            # send_msg(st.metric(label="비트코인", value=data[i]['가격'][0], delta=float(data[i]['가격'][1])-float(data[i]['가격'][0])),"ai")
-            send_msg(data[i],"ai")
+        send_msg(data,"ai")
+        # for i in range(len(data)):
+        #     send_msg(data[i],"ai")
