@@ -134,7 +134,10 @@ class aihelp:
                         VALUES ('{ask}','{query}',now())
                         """
             cursor.execute(insertquery)
+            self.connection.commit()
+            
         cursor.close()
+        self.connection.close()
         return pd.DataFrame(datas)
     
     def convertenlish(self,ask):
