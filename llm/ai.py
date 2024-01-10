@@ -197,6 +197,12 @@ class aihelp:
                 "전체 정보":"""""",
                 "테이블 정보":"""""",
                 "매니저 임금정보":"""""",
+                "가게정보":"""
+                        select title as 이름, score as 평점, region as 지역, url as 정보링크 from restaurant
+                        """,
+                        "음식점정보":"""
+                        select title as 이름, score as 평점, region as 지역, url as 정보링크 from restaurant
+                        """
                 
             }
             embeddings = OpenAIEmbeddings()
