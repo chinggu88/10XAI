@@ -17,7 +17,7 @@ from langchain.vectorstores import FAISS
 import json
 from llm.llmcallback import ChatCallbackHandler
 from langchain.memory import ConversationSummaryBufferMemory,SQLChatMessageHistory
-
+import re
 class aihelp:
     def __init__(self):
         OPENAI_API_KEY=st.secrets["OPENAI_API_KEY"]
@@ -153,6 +153,10 @@ class aihelp:
     
     def load_memory(self,input):
         return self.m.load_memory_variables({})['chain_history']
+    #특수문자 제거
+    def clean_text(self,inputString):
+        text_rmv = re.sub('[-=+,#/\?:^.@*\"※~ㆍ!』‘|\(\)\[\]`\'…》\”\“\’·]', ' ', inputString)
+        return text_rmv
     def messageai(self,ask):
         try:
             few_shots = {
@@ -341,17 +345,18 @@ class aihelp:
             return result
         except Exception as e:
             logging.warning(e)
-            
+            print(self.clean_text(str(e)))
             insertquery =f"""
                         INSERT INTO miss_ask(ask,query,insert_date)
-                        VALUES ({ask},{str(e)},now())
+                        VALUES ('{ask}','{self.clean_text(str(e))}',now())
                         """
             print('=================================')
             print(insertquery)
             cursor = self.connection.cursor(pymysql.cursors.DictCursor)
             cursor.execute(insertquery)
-            cursor.close()
-            return [f'데이터를 불러오는데 실패했습니다. ${e}']
+            self.connection.commit()
+            self.connection.close()
+            return [f'데이터를 불러오는데 실패했습니다.',str(e)]
         
     def messageaiplus(self,ask):
         return self.db_chain.run(ask)
